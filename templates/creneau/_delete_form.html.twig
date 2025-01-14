@@ -1,0 +1,28 @@
+<form method="post" action="{{ path('app_creneau_delete', {'id': creneau.id}) }}" onsubmit="return confirm('Are you sure you want to delete this item?');" class="d-inline">
+	<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ creneau.id) }}">
+	<button type="submit" class="btn btn-danger shadow-sm">
+		<i class="bi bi-trash-fill"></i>
+		Delete
+	</button>
+</form>
+
+{# Additional Styles #}
+<style>
+	.btn-danger {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+		font-weight: bold;
+	}
+
+	.btn-danger:hover {
+		transform: scale(1.05);
+		background-color: #dc3545;
+		border-color: #dc3545;
+		transition: transform 0.2s, background-color 0.2s;
+	}
+
+	.btn-danger i {
+		font-size: 1.2rem;
+	}
+</style>

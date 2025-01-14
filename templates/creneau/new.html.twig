@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Creneau
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<h1 class="text-center mb-4">
+			<i class="bi bi-calendar-plus"></i>
+			Create New Creneau
+		</h1>
+		{{ include('creneau/_form.html.twig') }}
+	</div>
+{% endblock %}

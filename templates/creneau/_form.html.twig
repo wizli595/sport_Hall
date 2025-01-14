@@ -1,0 +1,136 @@
+<div class="container mt-5">
+	<div class="card shadow-lg p-4">
+		<div class="card-header bg-primary text-white text-center">
+			<h2>
+				<i class="bi bi-calendar-plus"></i>
+				Create New Creneau
+			</h2>
+		</div>
+		<div class="card-body">
+			{{ form_start(form, { 'attr': { 'class': 'needs-validation', 'novalidate': 'novalidate' } }) }}
+
+			<div class="mb-4">
+				{{ form_label(form.date, 'Date', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(form.date, {'attr': {'class': 'form-control', 'placeholder': 'Select a date'}}) }}
+				<div class="form-text">Choose the date for this time slot.</div>
+				{{ form_errors(form.date) }}
+			</div>
+
+			<div class="mb-4">
+				{{ form_label(form.startTime, 'Start Time', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(form.startTime, {'attr': {'class': 'form-control', 'placeholder': 'Select start time'}}) }}
+				<div class="form-text">Set the starting time for this slot.</div>
+				{{ form_errors(form.startTime) }}
+			</div>
+
+			<div class="mb-4">
+				{{ form_label(form.endTime, 'End Time', {'label_attr': {'class': 'form-label'}}) }}
+				{{ form_widget(form.endTime, {'attr': {'class': 'form-control', 'placeholder': 'Select end time'}}) }}
+				<div class="form-text">Set the ending time for this slot.</div>
+				{{ form_errors(form.endTime) }}
+			</div>
+
+			<div class="form-check mb-4">
+				{{ form_widget(form.dispo, {'attr': {'class': 'form-check-input'}}) }}
+				{{ form_label(form.dispo, 'Available', {'label_attr': {'class': 'form-check-label'}}) }}
+				<div class="form-text">Mark this slot as available.</div>
+				{{ form_errors(form.dispo) }}
+			</div>
+
+			<div class="text-center mt-4">
+				<button type="submit" class="btn btn-success btn-lg shadow-sm">
+					<i class="bi bi-check-circle"></i>
+					Save
+				</button>
+				<a href="{{ path('app_creneau_index') }}" class="btn btn-outline-secondary btn-lg shadow-sm">
+					<i class="bi bi-arrow-left-circle"></i>
+					Back to List
+				</a>
+			</div>
+
+			{{ form_end(form) }}
+		</div>
+	</div>
+</div>
+
+{# Additional Styles and Animations #}
+<style>
+	/* Card Design */
+	.card {
+		border-radius: 15px;
+		background-color: #f8f9fa;
+		animation: fadeIn 0.5s ease-in-out;
+	}
+
+	.card-header {
+		border-radius: 15px 15px 0 0;
+		padding: 1.5rem;
+		font-size: 1.5rem;
+		font-weight: bold;
+	}
+
+	/* Form Styling */
+	.form-label {
+		font-weight: bold;
+	}
+
+	.form-control,
+	.form-check-input {
+		border-radius: 10px;
+		transition: all 0.3s ease-in-out;
+	}
+
+	.form-control:focus,
+	.form-check-input:focus {
+		border-color: #007bff;
+		box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+	}
+
+	/* Buttons */
+	.btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
+	}
+
+	.btn:hover {
+		transform: scale(1.05);
+		transition: transform 0.2s;
+	}
+
+	.btn-outline-secondary:hover {
+		background-color: #6c757d;
+		color: white;
+	}
+
+	.btn-success:hover {
+		background-color: #28a745;
+		color: white;
+	}
+
+	/* Alert Styling */
+	.alert {
+		font-size: 1rem;
+		border-radius: 10px;
+	}
+
+	/* Fade-In Animation */
+	@keyframes fadeIn {
+		from {
+			opacity: 0;
+			transform: translateY(-10px);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0);
+		}
+	}
+
+	/* Responsive Design */
+	@media(max-width: 768px) {
+		.text-center .btn {
+			width: 100%;
+			margin-bottom: 1rem;
+		}
+	}
+</style>

@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">
+        <i class="bi bi-speedometer2"></i> Admin Dashboard
+    </h1>
+
+    <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-people-fill display-4 text-primary"></i>
+                    <h4 class="card-title mt-3">Manage Abonnés</h4>
+                    <p class="card-text">Total Abonnés: <strong>{{ totalAbonnes }}</strong></p>
+                    <p class="card-text text-success">Active: <strong>{{ activeAbonnes }}</strong></p>
+                    <p class="card-text text-danger">Inactive: <strong>{{ inactiveAbonnes }}</strong></p>
+                    <a href="{{ path('app_abonne_index') }}" class="btn btn-primary btn-lg mt-2">
+                        <i class="bi bi-arrow-right-circle"></i> Go to Abonnés
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-calendar-check-fill display-4 text-success"></i>
+                    <h4 class="card-title mt-3">Manage Créneaux</h4>
+                    <p class="card-text">Total Créneaux: <strong>{{ totalCreneaux }}</strong></p>
+                    <p class="card-text text-success">Available: <strong>{{ availableCreneaux }}</strong></p>
+                    <p class="card-text text-danger">Reserved: <strong>{{ reservedCreneaux }}</strong></p>
+                    <a href="{{ path('app_creneau_index') }}" class="btn btn-success btn-lg mt-2">
+                        <i class="bi bi-arrow-right-circle"></i> Go to Time Slots
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6">
+            <div class="card shadow h-100 text-center">
+                <div class="card-body">
+                    <i class="bi bi-currency-dollar display-4 text-warning"></i>
+                    <h4 class="card-title mt-3">Manage Paiements</h4>
+                    <p class="card-text">Total Paiements: <strong>€{{ totalPaiements }}</strong></p>
+                    <a href="{{ path('app_paiement_index') }}" class="btn btn-warning btn-lg mt-2">
+                        <i class="bi bi-arrow-right-circle"></i> Go to Payments
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr class="my-5">
+
+    <!-- Analytics Section -->
+    <h2 class="text-center mb-4">Analytics</h2>
+    <div class="row">
+        <div class="col-md-6">
+            <h5 class="text-center">Abonnés</h5>
+            <canvas id="abonnesChart"></canvas>
+        </div>
+        <div class="col-md-6">
+            <h5 class="text-center">Paiements</h5>
+            <canvas id="paiementsChart"></canvas>
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <h5 class="text-center">Créneaux</h5>
+            <canvas id="creneauxChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    
+    const abonnesCtx = document.getElementById('abonnesChart').getContext('2d');
+    new Chart(abonnesCtx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Active', 'Inactive'],
+            datasets: [{
+                label: 'Abonnés',
+                data: [{{ activeAbonnes }}, {{ inactiveAbonnes }}],
+                backgroundColor: ['#28a745', '#dc3545'],
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: { position: 'bottom' },
+            },
+        },
+    });
+
+    // Paiements Chart
+    const paiementsCtx = document.getElementById('paiementsChart').getContext('2d');
+    new Chart(paiementsCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ paymentMonths|json_encode|raw }},
+            datasets: [{
+                label: 'Monthly Payments (€)',
+                data: {{ paymentData|json_encode|raw }},
+                backgroundColor: '#007bff',
+            }],
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { title: { display: true, text: 'Months' } },
+                y: { title: { display: true, text: 'Payments (€)' } },
+            },
+        },
+    });
+
+    // Créneaux Chart
+    const creneauxCtx = document.getElementById('creneauxChart').getContext('2d');
+    new Chart(creneauxCtx, {
+        type: 'bar',
+        data: {
+            labels: {{ creneauxDates|json_encode|raw }},
+            datasets: [
+                {
+                    label: 'Available Slots',
+                    data: {{ availableCreneauxData|json_encode|raw }},
+                    backgroundColor: '#28a745',
+                },
+                {
+                    label: 'Reserved Slots',
+                    data: {{ reservedCreneauxData|json_encode|raw }},
+                    backgroundColor: '#dc3545',
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            scales: {
+                x: { title: { display: true, text: 'Dates' } },
+                y: { title: { display: true, text: 'Number of Slots' } },
+            },
+        },
+    });
+</script>
+{% endblock %}

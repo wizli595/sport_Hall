@@ -1,0 +1,96 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Paiement Details
+{% endblock %}
+
+{% block body %}
+	<div class="container my-5">
+		<div class="card shadow-lg">
+			<div class="card-header bg-primary text-white">
+				<h1 class="h4 mb-0">
+					<i class="bi bi-receipt me-2"></i>Paiement Details</h1>
+			</div>
+			<div class="card-body">
+				<table class="table table-borderless">
+					<tbody>
+						<tr>
+							<th scope="row">
+								<i class="bi bi-hash"></i>
+								Id</th>
+							<td>{{ paiement.id }}</td>
+						</tr>
+						<tr>
+							<th scope="row">
+								<i class="bi bi-currency-dollar"></i>
+								Montant</th>
+							<td>{{ paiement.montant }}</td>
+						</tr>
+						<tr>
+							<th scope="row">
+								<i class="bi bi-calendar-event"></i>
+								Pay Date</th>
+							<td>{{ paiement.payDate ? paiement.payDate|date('Y-m-d H:i:s') : 'N/A' }}</td>
+						</tr>
+						<tr>
+							<th scope="row">
+								<i class="bi bi-credit-card"></i>
+								Payment Mode</th>
+							<td>{{ paiement.modePay }}</td>
+						</tr>
+					</tbody>
+				</table>
+
+				<div class="d-flex justify-content-between mt-4">
+					<a href="{{ path('app_paiement_index') }}" class="btn btn-outline-secondary">
+						<i class="bi bi-arrow-left-circle"></i>
+						Back to List
+					</a>
+					<div>
+						<a href="{{ path('app_paiement_edit', {'id': paiement.id}) }}" class="btn btn-outline-primary me-2">
+							<i class="bi bi-pencil"></i>
+							Edit
+						</a>
+						{% if is_granted('ROLE_ADMIN') %}
+							{{ include('paiement/_delete_form.html.twig') }}
+						{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{# Additional Styles for Aesthetics #}
+	<style>
+		body {
+			color: #212529;
+		}
+
+		.card {
+			border-radius: 15px;
+			animation: fadeIn 0.8s ease-in-out;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(-20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.btn {
+			display: flex;
+			align-items: center;
+			gap: 5px;
+		}
+
+		.btn-outline-primary:hover,
+		.btn-outline-secondary:hover {
+			transform: scale(1.05);
+			transition: transform 0.2s ease-in-out;
+		}
+	</style>
+{% endblock %}

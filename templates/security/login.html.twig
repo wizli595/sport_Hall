@@ -1,0 +1,97 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Log In
+{% endblock %}
+
+{% block body %}
+	<div class="container d-flex justify-content-center align-items-center vh-100">
+		<div class="card shadow-lg p-4" style="max-width: 400px; width: 100%;">
+			<div class="text-center mb-4">
+				<i class="bi bi-person-circle display-1 text-primary"></i>
+				<h1 class="h4 mb-3">Welcome Back!</h1>
+			</div>
+
+			{# Display errors if present #}
+			{% if error %}
+				<div class="alert alert-danger alert-dismissible fade show" role="alert">
+					<i class="bi bi-exclamation-circle-fill me-2"></i>
+					{{ error.messageKey|trans(error.messageData, 'security') }}
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			{% endif %}
+
+			{# Show user information if logged in #}
+			{% if app.user %}
+				<div class="alert alert-info">
+					<i class="bi bi-info-circle-fill"></i>
+					You are logged in as
+					<strong>{{ app.user.userIdentifier }}</strong>.
+					<a href="{{ path('app_logout') }}" class="text-decoration-none">Logout</a>
+				</div>
+			{% endif %}
+
+			<form method="post">
+				<div class="mb-3">
+					<label for="username" class="form-label">
+						<i class="bi bi-envelope-fill me-2"></i>Email</label>
+					<input type="email" name="_username" id="username" value="{{ last_username }}" class="form-control" autocomplete="email" required autofocus>
+				</div>
+				<div class="mb-3">
+					<label for="password" class="form-label">
+						<i class="bi bi-lock-fill me-2"></i>Password</label>
+					<input type="password" name="_password" id="password" class="form-control" autocomplete="current-password" required>
+				</div>
+
+				<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+				<div class="d-grid">
+					<button class="btn btn-primary btn-lg" type="submit">
+						<i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+					</button>
+				</div>
+			</form>
+
+			<div class="text-center mt-3">
+				<a href="#" class="text-decoration-none">Forgot your password?</a>
+			</div>
+		</div>
+	</div>
+
+	{# Additional styles for animation and aesthetics #}
+	<style>
+		body {
+			background: linear-gradient(135deg, #007bff, #6c757d);
+			color: #fff;
+		}
+
+		.card {
+			background-color: #f8f9fa;
+			border-radius: 15px;
+			animation: fadeIn 0.8s ease-in-out;
+		}
+
+		.btn-primary {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			transition: all 0.3s ease;
+		}
+
+		.btn-primary:hover {
+			background-color: #0056b3;
+			transform: scale(1.05);
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(-20px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+	</style>
+
+{% endblock %}

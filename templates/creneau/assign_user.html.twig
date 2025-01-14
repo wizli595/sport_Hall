@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Assign User to Time Slot
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<div class="card shadow-lg">
+			<div class="card-header bg-dark text-white text-center">
+				<h2>
+					<i class="bi bi-person-plus-fill"></i>
+					Assign User to Time Slot
+				</h2>
+			</div>
+			<div class="card-body">
+				<p>
+					<strong>Creneau:</strong>
+					{{ creneau.date|date('Y-m-d') }}
+					({{ creneau.startTime|date('H:i') }}
+					-
+					{{ creneau.endTime|date('H:i') }})
+				</p>
+				<form method="post">
+					<div class="mb-3">
+						<label for="user_id" class="form-label">Select User</label>
+						<select name="user_id" id="user_id" class="form-select" required>
+							<option value="" selected disabled>Choose a user</option>
+							{% for user in users %}
+								<option value="{{ user.id }}">{{ user.email }}</option>
+							{% endfor %}
+						</select>
+					</div>
+					<button type="submit" class="btn btn-success">
+						<i class="bi bi-check-circle"></i>
+						Assign User
+					</button>
+					<a href="{{ path('app_creneau_index') }}" class="btn btn-outline-secondary">
+						<i class="bi bi-arrow-left"></i>
+						Back to List
+					</a>
+				</form>
+			</div>
+		</div>
+	</div>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Abonne
+{% endblock %}
+
+{% block body %}
+	<div class="container mt-5">
+		<div class="card shadow-lg p-4">
+			<div class="card-header text-center bg-dark text-white">
+				<h2>
+					<i class="bi bi-person-plus-fill"></i>
+					Create New Abonne</h2>
+			</div>
+			<div
+				class="card-body">
+				{# Form Start #}
+				{{ form_start(form, { 'attr': { 'class': 'row g-3' } }) }}
+
+				<div class="mb-3">
+					{{ form_label(form.name, 'Name', {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.name, {'attr': {'class': 'form-control', 'placeholder': 'Enter name'}}) }}
+					{{ form_errors(form.name) }}
+				</div>
+
+				<div class="mb-3">
+					{{ form_label(form.firstname, 'Firstname', {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.firstname, {'attr': {'class': 'form-control', 'placeholder': 'Enter firstname'}}) }}
+					{{ form_errors(form.firstname) }}
+				</div>
+
+				<div class="mb-3">
+					{{ form_label(form.fname, 'Fname', {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.fname, {'attr': {'class': 'form-control', 'placeholder': 'Enter fname'}}) }}
+					{{ form_errors(form.fname) }}
+				</div>
+
+				<div class="mb-3">
+					{{ form_label(form.lname, 'Lname', {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.lname, {'attr': {'class': 'form-control', 'placeholder': 'Enter lname'}}) }}
+					{{ form_errors(form.lname) }}
+				</div>
+
+				<div class="mb-3">
+					{{ form_label(form.tele, 'Telephone', {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.tele, {'attr': {'class': 'form-control', 'placeholder': 'Enter telephone number'}}) }}
+					{{ form_errors(form.tele) }}
+				</div>
+
+				<div class="mb-3">
+					{{ form_label(form.datetime, 'Datetime', {'label_attr': {'class': 'form-label'}}) }}
+					{{ form_widget(form.datetime, {'attr': {'class': 'form-control', 'placeholder': 'Select date and time'}}) }}
+					{{ form_errors(form.datetime) }}
+				</div>
+
+				<div class="mb-3 form-check">
+					{{ form_widget(form.activeSub, {'attr': {'class': 'form-check-input'}}) }}
+					{{ form_label(form.activeSub, 'Active Subscription', {'label_attr': {'class': 'form-check-label'}}) }}
+					{{ form_errors(form.activeSub) }}
+				</div>
+
+				<div class="d-flex justify-content-between">
+					<a href="{{ path('app_abonne_index') }}" class="btn btn-outline-secondary">
+						<i class="bi bi-arrow-left"></i>
+						Back to List
+					</a>
+					<button type="submit" class="btn btn-success">
+						<i class="bi bi-save"></i>
+						Save
+					</button>
+				</div>
+
+				{{ form_end(form) }}
+			</div>
+		</div>
+	</div>
+
+	{# Additional Styles #}
+	<style>
+		.card {
+			border-radius: 15px;
+			background-color: #f8f9fa;
+		}
+
+		.btn {
+			display: inline-flex;
+			align-items: center;
+			gap: 0.5rem;
+		}
+
+		.btn:hover {
+			transform: scale(1.05);
+			transition: transform 0.2s;
+		}
+	</style>
+{% endblock %}
