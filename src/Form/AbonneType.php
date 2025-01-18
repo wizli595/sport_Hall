@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Abonne;
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,6 +23,13 @@ class AbonneType extends AbstractType
                 'widget' => 'single_text',
             ])
             ->add('activeSub')
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'email', // Show email in dropdown
+                'placeholder' => 'Choose a user',
+                'required' => true,
+            ])
+            
         ;
     }
 

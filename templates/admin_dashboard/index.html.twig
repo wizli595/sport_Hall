@@ -60,90 +60,32 @@
     <div class="row">
         <div class="col-md-6">
             <h5 class="text-center">Abonnés</h5>
-            <canvas id="abonnesChart"></canvas>
+            <canvas id="abonnesChart" 
+                data-chart-data="{{ [activeAbonnes, inactiveAbonnes]|join(',') }}">
+            </canvas>
         </div>
         <div class="col-md-6">
             <h5 class="text-center">Paiements</h5>
-            <canvas id="paiementsChart"></canvas>
+            <canvas id="paiementsChart"
+        data-labels="{{ paymentMonths|json_encode|raw|default('[]') }}"
+        data-chart-data="{{ paymentData|json_encode|raw|default('[]') }}">
+</canvas>
         </div>
     </div>
     <div class="row mt-4">
         <div class="col-md-12">
             <h5 class="text-center">Créneaux</h5>
-            <canvas id="creneauxChart"></canvas>
+           <canvas id="creneauxChart"
+        data-labels="{{ creneauxDates|json_encode|raw|default('[]') }}"
+        data-available="{{ availableCreneauxData|json_encode|raw|default('[]') }}"
+        data-reserved="{{ reservedCreneauxData|json_encode|raw|default('[]') }}">
+</canvas>
         </div>
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script>
-    
-    const abonnesCtx = document.getElementById('abonnesChart').getContext('2d');
-    new Chart(abonnesCtx, {
-        type: 'doughnut',
-        data: {
-            labels: ['Active', 'Inactive'],
-            datasets: [{
-                label: 'Abonnés',
-                data: [{{ activeAbonnes }}, {{ inactiveAbonnes }}],
-                backgroundColor: ['#28a745', '#dc3545'],
-            }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: { position: 'bottom' },
-            },
-        },
-    });
-
-    // Paiements Chart
-    const paiementsCtx = document.getElementById('paiementsChart').getContext('2d');
-    new Chart(paiementsCtx, {
-        type: 'bar',
-        data: {
-            labels: {{ paymentMonths|json_encode|raw }},
-            datasets: [{
-                label: 'Monthly Payments (€)',
-                data: {{ paymentData|json_encode|raw }},
-                backgroundColor: '#007bff',
-            }],
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: { title: { display: true, text: 'Months' } },
-                y: { title: { display: true, text: 'Payments (€)' } },
-            },
-        },
-    });
-
-    // Créneaux Chart
-    const creneauxCtx = document.getElementById('creneauxChart').getContext('2d');
-    new Chart(creneauxCtx, {
-        type: 'bar',
-        data: {
-            labels: {{ creneauxDates|json_encode|raw }},
-            datasets: [
-                {
-                    label: 'Available Slots',
-                    data: {{ availableCreneauxData|json_encode|raw }},
-                    backgroundColor: '#28a745',
-                },
-                {
-                    label: 'Reserved Slots',
-                    data: {{ reservedCreneauxData|json_encode|raw }},
-                    backgroundColor: '#dc3545',
-                },
-            ],
-        },
-        options: {
-            responsive: true,
-            scales: {
-                x: { title: { display: true, text: 'Dates' } },
-                y: { title: { display: true, text: 'Number of Slots' } },
-            },
-        },
-    });
-</script>
+{% block javascripts %}
+    {{ vite_entry_script_tags('adminDashboard') }}
+    {{ vite_entry_script_tags('app') }}
+{% endblock %}
 {% endblock %}

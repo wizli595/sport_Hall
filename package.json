@@ -1,0 +1,24 @@
+{
+  "name": "sporthall",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/wizli595/sport_Hall.git",
+  "author": "wizli595 <abdoowizli@gmail.com>",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.3",
+    "bootstrap-icons": "^1.11.3",
+    "chart.js": "^4.4.7"
+  },
+  "devDependencies": {
+    "vite": "^6.0.7",
+    "vite-plugin-symfony": "^7.1.0"
+  }
+}

@@ -1,0 +1,15 @@
+{{ form_start(form, {'attr': {'class': 'form-floating'}}) }}
+    <div class="mb-3">
+        {{ form_label(form.email, null, {'class': 'form-label'}) }}
+        {{ form_widget(form.email, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <div class="mb-3">
+        {{ form_label(form.roles, null, {'class': 'form-label'}) }}
+        {{ form_widget(form.roles, {'attr': {'class': 'form-control'}}) }}
+    </div>
+
+    <button class="btn btn-success">
+        <i class="bi bi-check-circle"></i> {{ button_label|default('Save') }}
+    </button>
+{{ form_end(form) }}
